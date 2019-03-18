@@ -77,6 +77,7 @@ public class PersonArrayList {
 
     public PersonArrayList greaterThan(Person p) {
         PersonArrayList newPersonArrList;
+        return newPersonArrList > p;
 
     }
 
