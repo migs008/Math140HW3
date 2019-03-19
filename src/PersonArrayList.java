@@ -8,8 +8,9 @@ public class PersonArrayList {
 
     private void ensureCapacity(int minCapacity) {
         if (minCapacity > list.length) {
-            list = new Person[minCapacity];
-            System.arraycopy(list, 0, list, 0, list.length);
+            Person[] tmp = new Person[minCapacity]
+            System.arraycopy(list, 0, tmp, 0, list.length);
+            list = tmp;
         }
     }
 
@@ -17,8 +18,10 @@ public class PersonArrayList {
         if (size >= list.length) {
             ensureCapacity(2*list.length);
         }
-        list[size] = p;
-        size++;
+        else {
+            list[size] = p;
+            size++;
+        }
     }
 
     public void add(int index, Person value) {
@@ -75,15 +78,15 @@ public class PersonArrayList {
         return size;
     }
 
-    public PersonArrayList greaterThan(Person p) {
-        PersonArrayList newPersonArrList;
-        return newPersonArrList > p;
-
-    }
-
-    public Person[] sort() {
-
-    }
+//    public PersonArrayList greaterThan(Person p) {
+//        PersonArrayList newPersonArrList;
+//        return newPersonArrList > p;
+//
+//    }
+//
+//    public Person[] sort() {
+//
+//    }
 
 
 }

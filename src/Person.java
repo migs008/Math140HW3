@@ -47,15 +47,18 @@ public class Person implements Comparable<Person> {
 
     public int compareTo(Person p) {
 
+        int x;
+
         if (!this.lastName.equalsIgnoreCase(p.lastName)) {
-            return this.lastName.compareTo(p.lastName);
+            x = this.lastName.compareTo(p.lastName);
         }
         else if (!this.firstName.equalsIgnoreCase(p.firstName)) {
-            return this.firstName.compareTo(p.firstName);
+            x = this.firstName.compareTo(p.firstName);
         }
         else {
-            return this.age - p.age;
+            x = this.age - p.age;
         }
+        return x;
     }
 
 }
