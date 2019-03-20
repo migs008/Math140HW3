@@ -6,11 +6,9 @@ Purpose: Modified version of the ArrayList class.
 
 import java.util.Arrays;
 
-
 public class PersonArrayList {
     private Person[] list;
     private int size = 0;
-    private PersonArrayList newPersonArrList;
 
     public PersonArrayList(int capacity) {
         this.list = new Person[capacity];
@@ -18,7 +16,7 @@ public class PersonArrayList {
 
     private void ensureCapacity(int minCapacity) {
         if (minCapacity > list.length) {
-            Person[] tmp = new Person[2*minCapacity];
+            Person[] tmp = new Person[minCapacity];
             System.arraycopy(list, 0, tmp, 0, list.length);
             list = tmp;
         }
@@ -26,10 +24,11 @@ public class PersonArrayList {
 
     public void add(Person p) {
         if (size >= list.length) {
-            ensureCapacity(list.length);
-            list[size] = p;
-            size++;
+            ensureCapacity(2*list.length);
+
         }
+        list[size] = p;
+        size++;
 
     }
 
@@ -38,36 +37,33 @@ public class PersonArrayList {
             throw new IndexOutOfBoundsException();
         }
         if (size >= list.length) {
-            ensureCapacity(list.length);
-            list[index] = value;
-            size++;
+            ensureCapacity(2*list.length);
+
         }
+        System.arraycopy(list, index, list, index + 1, size - index);
+        list[index] = value;
+        size++;
 
     }
 
     public Person remove(int index) {
         Person tmp;
-        tmp = list[index];
-        Person[] newArr = new Person[size - 1];
 
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
         else {
-            for (int i = 0; i < list.length; i++) {
-
-                System.arraycopy(list, 0, newArr, 0, index);
-                System.arraycopy(list, index + 1, newArr, index, size - index - 1);
-            }
+            tmp = list[index];
+            System.arraycopy(list, index + 1, list, index, size - index - 1);
         }
+        size--;
         return tmp;
     }
 
     public boolean remove(Person s) {
         boolean flag = false;
-        int index = 0;
-        for (int i = 0; i < list.length; i++){
-            if (list[i] == s && !flag) {
+        for (int i = 0; i < size && !flag; i++){
+            if (list[i].equals(s)) {
                 remove(i);
                 flag = true;
             }
@@ -77,22 +73,18 @@ public class PersonArrayList {
 
     public Person get(int index) {
         Person tmp;
-        tmp = list[index];
+
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
+        tmp = list[index];
+
         return tmp;
     }
 
     public int size() {
         return size;
     }
-
-//    public PersonArrayList greaterThan(Person p) {
-//        PersonArrayList newPersonArrList;
-//        return newPersonArrList > p;
-//
-//    }
 
     public PersonArrayList greaterThan(Person p) {
         int count = 0;
@@ -104,7 +96,7 @@ public class PersonArrayList {
         PersonArrayList newPersonArrList = new PersonArrayList(count);
         for (int i = 0; i < size; i++) {
             if (list[i].compareTo(p) > 0) {
-                newPersonArrList.add(p);
+                newPersonArrList.add(list[i]);
             }
         }
         return newPersonArrList;
@@ -113,9 +105,7 @@ public class PersonArrayList {
     Person[] sort() {
 
         Person[] tmp = new Person[size];
-        for (int i= 0; i < size; i++) {
-            tmp[i] = list[i];
-        }
+        System.arraycopy(list, 0, tmp, 0, size);
         Arrays.sort(tmp);
         return tmp;
     }
