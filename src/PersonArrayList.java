@@ -1,3 +1,9 @@
+/*
+Author: Miguel Aquino
+Date: 3/19/2019
+Purpose: Modified version of the ArrayList class.
+*/
+
 import java.util.Arrays;
 
 
@@ -7,7 +13,7 @@ public class PersonArrayList {
     private PersonArrayList newPersonArrList;
 
     public PersonArrayList(int capacity) {
-        Person[] newList = new Person[capacity];
+        this.list = new Person[capacity];
     }
 
     private void ensureCapacity(int minCapacity) {
@@ -21,9 +27,10 @@ public class PersonArrayList {
     public void add(Person p) {
         if (size >= list.length) {
             ensureCapacity(list.length);
+            list[size] = p;
+            size++;
         }
-        list[size] = p;
-        size++;
+
     }
 
     public void add(int index, Person value) {
@@ -32,9 +39,10 @@ public class PersonArrayList {
         }
         if (size >= list.length) {
             ensureCapacity(list.length);
+            list[index] = value;
+            size++;
         }
-        list[index] = value;
-        size++;
+
     }
 
     public Person remove(int index) {
@@ -104,11 +112,11 @@ public class PersonArrayList {
 
     Person[] sort() {
 
-        Person[] temp = new Person[size];
+        Person[] tmp = new Person[size];
         for (int i= 0; i < size; i++) {
-            temp[i] = list[i];
+            tmp[i] = list[i];
         }
-        Arrays.sort(temp);
-        return temp;
+        Arrays.sort(tmp);
+        return tmp;
     }
 }

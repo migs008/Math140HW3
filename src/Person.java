@@ -1,3 +1,9 @@
+/*
+Author: Miguel Aquino
+Date: 3/19/2019
+Purpose: Compares the names and ages of persons.
+*/
+
 public class Person implements Comparable<Person> {
 
     private String firstName;
