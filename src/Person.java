@@ -38,6 +38,7 @@ public class Person implements Comparable<Person> {
         this.age = age;
     }
 
+    @Override
     public boolean equals(Object o) {
         Person other = (Person) o;
 
@@ -45,6 +46,7 @@ public class Person implements Comparable<Person> {
 
     }
 
+    @Override
     public int compareTo(Person p) {
 
         int x;

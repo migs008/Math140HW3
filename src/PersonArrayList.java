@@ -1,6 +1,10 @@
+import java.util.Arrays;
+
+
 public class PersonArrayList {
     private Person[] list;
     private int size = 0;
+    private PersonArrayList newPersonArrList;
 
     public PersonArrayList(int capacity) {
         Person[] newList = new Person[capacity];
@@ -8,7 +12,7 @@ public class PersonArrayList {
 
     private void ensureCapacity(int minCapacity) {
         if (minCapacity > list.length) {
-            Person[] tmp = new Person[minCapacity]
+            Person[] tmp = new Person[2*minCapacity];
             System.arraycopy(list, 0, tmp, 0, list.length);
             list = tmp;
         }
@@ -16,12 +20,10 @@ public class PersonArrayList {
 
     public void add(Person p) {
         if (size >= list.length) {
-            ensureCapacity(2*list.length);
+            ensureCapacity(list.length);
         }
-        else {
-            list[size] = p;
-            size++;
-        }
+        list[size] = p;
+        size++;
     }
 
     public void add(int index, Person value) {
@@ -29,7 +31,7 @@ public class PersonArrayList {
             throw new IndexOutOfBoundsException();
         }
         if (size >= list.length) {
-            ensureCapacity(2*list.length);
+            ensureCapacity(list.length);
         }
         list[index] = value;
         size++;
@@ -83,10 +85,30 @@ public class PersonArrayList {
 //        return newPersonArrList > p;
 //
 //    }
-//
-//    public Person[] sort() {
-//
-//    }
 
+    public PersonArrayList greaterThan(Person p) {
+        int count = 0;
+        for (int i = 0; i < size; i++) {
+            if (list[i].compareTo(p) > 0) {
+                count++;
+            }
+        }
+        PersonArrayList newPersonArrList = new PersonArrayList(count);
+        for (int i = 0; i < size; i++) {
+            if (list[i].compareTo(p) > 0) {
+                newPersonArrList.add(p);
+            }
+        }
+        return newPersonArrList;
+    }
 
+    Person[] sort() {
+
+        Person[] temp = new Person[size];
+        for (int i= 0; i < size; i++) {
+            temp[i] = list[i];
+        }
+        Arrays.sort(temp);
+        return temp;
+    }
 }
